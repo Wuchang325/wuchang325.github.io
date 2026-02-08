@@ -25,6 +25,33 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          # 站点信息
+          VITE_SITE_NAME: ${{ secrets.VITE_SITE_NAME }}
+          VITE_SITE_AUTHOR: ${{ secrets.VITE_SITE_AUTHOR }}
+          VITE_SITE_KEYWORDS: ${{ secrets.VITE_SITE_KEYWORDS }}
+          VITE_SITE_DES: ${{ secrets.VITE_SITE_DES }}
+          VITE_SITE_URL: ${{ secrets.VITE_SITE_URL }}
+          VITE_SITE_LOGO: ${{ secrets.VITE_SITE_LOGO }}
+          VITE_SITE_MAIN_LOGO: ${{ secrets.VITE_SITE_MAIN_LOGO }}
+          VITE_SITE_APPLE_LOGO: ${{ secrets.VITE_SITE_APPLE_LOGO }}
+          # 简介文本
+          VITE_DESC_HELLO: ${{ secrets.VITE_DESC_HELLO }}
+          VITE_DESC_TEXT: ${{ secrets.VITE_DESC_TEXT }}
+          VITE_DESC_HELLO_OTHER: ${{ secrets.VITE_DESC_HELLO_OTHER }}
+          VITE_DESC_TEXT_OTHER: ${{ secrets.VITE_DESC_TEXT_OTHER }}
+          # 天气 Key
+          VITE_WEATHER_KEY: ${{ secrets.VITE_WEATHER_KEY }}
+          VITE_TENCENT_WEATHER_KEY: ${{ secrets.VITE_TENCENT_WEATHER_KEY }}
+          # 建站日期
+          VITE_SITE_START: ${{ secrets.VITE_SITE_START }}
+          # ICP 备案号
+          VITE_SITE_ICP: ${{ secrets.VITE_SITE_ICP }}
+          # 歌曲 API
+          VITE_SONG_API: ${{ secrets.VITE_SONG_API }}
+          VITE_SONG_SERVER: ${{ secrets.VITE_SONG_SERVER }}
+          VITE_SONG_TYPE: ${{ secrets.VITE_SONG_TYPE }}
+          VITE_SONG_ID: ${{ secrets.VITE_SONG_ID }}
 
       - name: Copy CNAME if present
         run: |
