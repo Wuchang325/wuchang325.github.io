@@ -59,7 +59,7 @@ export const getHitokoto = async () => {
   return await res.json();
 };*/
 export const getAdcode = async (key) => {
-  const res = await fetch(`/api/tx-location/ws/location/v1/ip?key=${key}`);
+  const res = await fetch(`https://apis.map.qq.com/ws/location/v1/ip?key=${key}`);
   return await res.json();
 };
 

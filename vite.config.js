@@ -50,43 +50,6 @@ export default ({ mode }) =>
           start_url: "/",
           theme_color: "#424242",
           background_color: "#424242",
-          icons: [
-            {
-              src: "/images/icon/48.png",
-              sizes: "48x48",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/72.png",
-              sizes: "72x72",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/96.png",
-              sizes: "96x96",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/128.png",
-              sizes: "128x128",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/144.png",
-              sizes: "144x144",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/192.png",
-              sizes: "192x192",
-              type: "image/png",
-            },
-            {
-              src: "/images/icon/512.png",
-              sizes: "512x512",
-              type: "image/png",
-            },
-          ],
         },
       }),
       viteCompression(),
@@ -94,22 +57,6 @@ export default ({ mode }) =>
     server: {
       port: "3000",
       open: true,
-      // ==================== 新增：代理配置 ====================
-      proxy: {
-        // 腾讯地图 IP 定位 API 代理
-        "/api/tx-location": {
-          target: "https://apis.map.qq.com",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/tx-location/, ""),
-        },
-        // 腾讯地图天气 API 代理
-        "/api/tx-weather": {
-          target: "https://apis.map.qq.com",
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/tx-weather/, ""),
-        },
-      },
-      // =======================================================
     },
     resolve: {
       alias: [
