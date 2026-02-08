@@ -22,23 +22,9 @@
             <github-one class="github" theme="outline" size="24" @click="jumpTo(config.github)" />
           </el-tooltip>
         </div>
-        <el-card class="update">
-          <template #header>
-            <div class="card-header">
-              <span>更新日志</span>
-            </div>
-          </template>
-          <div class="upnote">
-            <div v-for="item in upData.new" :key="item" class="uptext">
-              <add-one theme="outline" size="22" />
-              {{ item }}
-            </div>
-            <div v-for="item in upData.fix" :key="item" class="uptext">
-              <bug theme="outline" size="22" />
-              {{ item }}
-            </div>
-          </div>
-        </el-card>
+        <div class="image-wrap">
+          <img src="https://api.imlazy.ink/img" alt="decoration" />
+        </div>
       </el-col>
       <el-col :span="12" class="right">
         <div class="title">
@@ -52,7 +38,7 @@
 </template>
 
 <script setup>
-import { CloseOne, SettingTwo, GithubOne, AddOne, Bug } from "@icon-park/vue-next";
+import { CloseOne, SettingTwo, GithubOne } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
 import Set from "@/components/Set.vue";
 import config from "@/../package.json";
@@ -60,11 +46,9 @@ import config from "@/../package.json";
 const store = mainStore();
 const closeShow = ref(false);
 
-// 站点链接
 const siteUrl = computed(() => {
   const url = import.meta.env.VITE_SITE_URL;
-  if (!url) return "imsyy.top".split(".");
-  // 判断协议前缀
+  if (!url) return "zient.top".split(".");
   if (url.startsWith("http://") || url.startsWith("https://")) {
     const urlFormat = url.replace(/^(https?:\/\/)/, "");
     return urlFormat.split(".");
@@ -72,29 +56,15 @@ const siteUrl = computed(() => {
   return url.split(".");
 });
 
-// 更新日志
-const upData = reactive({
-  new: [
-    "采用 Vue 进行重构",
-    "音乐歌单支持快速自定义",
-    "壁纸支持个性化设置",
-    "音乐播放器支持音量控制",
-  ],
-  fix: ["修复天气 API", "时光胶囊显示错误", "移动端动画及细节", "图标更换为 IconPark"],
-});
-
-// 跳转源代码仓库
 const jumpTo = (url) => {
   window.open(url);
 };
 </script>
-
 <style lang="scss" scoped>
 .set {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
   width: 80%;
   height: 80%;
@@ -108,6 +78,7 @@ const jumpTo = (url) => {
     right: 14px;
     width: 28px;
     height: 28px;
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.2);
@@ -128,39 +99,33 @@ const jumpTo = (url) => {
       padding-bottom: 20px;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
+      gap: 24px;
 
       .logo {
-        transform: translateY(-8%);
         font-family: "Pacifico-Regular";
         padding-left: 22px;
         width: 100%;
-        height: 260px;
-        min-height: 140px;
+        height: auto;
+        min-height: auto;
+        transform: none;
+        
         .bg {
-          font-size: 5rem;
+          font-size: 3.5rem;
         }
 
         .sm {
           margin-left: 6px;
-          font-size: 2rem;
+          font-size: 1.5rem;
         }
 
         @media (max-width: 990px) {
-          .bg {
-            font-size: 4.5rem;
-          }
-          .sm {
-            font-size: 1.7rem;
-          }
+          .bg { font-size: 3rem; }
+          .sm { font-size: 1.3rem; }
         }
         @media (max-width: 825px) {
-          .bg {
-            font-size: 3.8rem;
-          }
-          .sm {
-            font-size: 1.3rem;
-          }
+          .bg { font-size: 2.5rem; }
+          .sm { font-size: 1.1rem; }
         }
       }
 
@@ -170,15 +135,16 @@ const jumpTo = (url) => {
         align-items: center;
 
         .num {
-          font-size: 2rem;
+          font-size: 1.5rem;
           font-family: "Pacifico-Regular";
         }
 
         .github {
-          width: 24px;
-          height: 24px;
-          margin-left: 12px;
-          margin-top: 6px;
+          width: 22px;
+          height: 22px;
+          margin-left: 10px;
+          margin-top: 4px;
+          cursor: pointer;
 
           &:hover {
             transform: scale(1.2);
@@ -186,35 +152,19 @@ const jumpTo = (url) => {
         }
       }
 
-      .update {
-        margin-top: 30px;
-        height: 100%;
-
-        :deep(.el-card__body) {
+      .image-wrap {
+        flex: 1;
+        width: 100%;
+        min-height: 150px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.2);
+        
+        img {
+          width: 100%;
           height: 100%;
-
-          .upnote {
-            padding: 20px;
-            height: calc(100% - 56px);
-            overflow-y: auto;
-
-            .uptext {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              padding-bottom: 16px;
-
-              &:nth-last-of-type(1) {
-                padding: 0;
-              }
-
-              .i-icon {
-                width: 22px;
-                height: 22px;
-                margin-right: 8px;
-              }
-            }
-          }
+          object-fit: cover;
+          display: block;
         }
       }
     }
@@ -224,7 +174,8 @@ const jumpTo = (url) => {
       padding-right: 40px !important;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start; // 从 center 改为 flex-start，顶部对齐
+      padding-top: 20px; // 可选：加一点顶部间距
 
       .title {
         display: flex;

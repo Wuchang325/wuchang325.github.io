@@ -51,6 +51,12 @@ a:hover {
 }
 
 @font-face {
+  font-family: "壱城ラウラフォント";
+  font-display: swap;
+  src: url("/font/壱城ラウラフォント.otf") format("truetype");
+}
+
+@font-face {
   font-family: "UnidreamLED";
   font-display: swap;
   src: url("/font/UnidreamLED.ttf") format("truetype");

@@ -8,7 +8,7 @@ import AutoImport from "unplugin-auto-import/vite";
 import Components from "unplugin-vue-components/vite";
 import viteCompression from "vite-plugin-compression";
 
-// https://vitejs.dev/config/
+// https://vitejs.dev/config/ 
 export default ({ mode }) =>
   defineConfig({
     plugins: [
@@ -27,14 +27,14 @@ export default ({ mode }) =>
           clientsClaim: true,
           runtimeCaching: [
             {
-              urlPattern: /(.*?)\.(js|css|woff2|woff|ttf)/, // js / css 静态资源缓存
+              urlPattern: /(.*?)\.(js|css|woff2|woff|ttf)/,
               handler: "CacheFirst",
               options: {
                 cacheName: "js-css-cache",
               },
             },
             {
-              urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/, // 图片缓存
+              urlPattern: /(.*?)\.(png|jpe?g|svg|gif|bmp|psd|tiff|tga|eps)/,
               handler: "CacheFirst",
               options: {
                 cacheName: "image-cache",
@@ -94,6 +94,22 @@ export default ({ mode }) =>
     server: {
       port: "3000",
       open: true,
+      // ==================== 新增：代理配置 ====================
+      proxy: {
+        // 腾讯地图 IP 定位 API 代理
+        "/api/tx-location": {
+          target: "https://apis.map.qq.com",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/tx-location/, ""),
+        },
+        // 腾讯地图天气 API 代理
+        "/api/tx-weather": {
+          target: "https://apis.map.qq.com",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/tx-weather/, ""),
+        },
+      },
+      // =======================================================
     },
     resolve: {
       alias: [

@@ -82,7 +82,7 @@ const jumpLink = (data) => {
 };
 
 onMounted(() => {
-  console.log(siteLinks);
+  // console.log(siteLinks);
 });
 </script>
 

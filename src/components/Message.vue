@@ -100,11 +100,17 @@ watch(
     .logo-img {
       border-radius: 50%;
       width: 120px;
+      transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+      transform-origin: center;
+    }
+
+    .logo-img:hover {
+      transform: rotate(-360deg);
     }
 
     .siName {
         font-family: "壱城ラウラフォント";
-        font-size: 2.75rem;
+        font-size: 4rem;
         color: #efefef;
       }
     .name {

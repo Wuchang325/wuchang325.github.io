@@ -13,12 +13,15 @@
           {{ fullYear }}
           <a :href="siteUrl">{{ siteAuthor }}</a>
         </span>
-        <!-- 以下信息请不要修改哦 -->
+        <!-- 以下信息请不要修改哦 
         <span class="hidden">
           &amp;&nbsp;Made&nbsp;by
           <a :href="config.github" target="_blank">
             {{ config.author }}
           </a>
+        </span>-->
+        <span>
+          &amp;&nbsp;Made&nbsp;by&nbsp;<a href="https://github.com/imsyy/home" target="_blank">imsyy</a>
         </span>
         <!-- 站点备案 -->
         <span>
@@ -44,7 +47,7 @@
 <script setup>
 import { MusicOne } from "@icon-park/vue-next";
 import { mainStore } from "@/store";
-import config from "@/../package.json";
+//import config from "@/../package.json";
 
 const store = mainStore();
 const fullYear = new Date().getFullYear();
@@ -59,7 +62,7 @@ const siteIcp = ref(import.meta.env.VITE_SITE_ICP);
 const siteAuthor = ref(import.meta.env.VITE_SITE_AUTHOR);
 const siteUrl = computed(() => {
   const url = import.meta.env.VITE_SITE_URL;
-  if (!url) return "https://www.imsyy.top";
+  if (!url) return "https://www.zient.top";
   // 判断协议前缀
   if (!url.startsWith("http://") && !url.startsWith("https://")) {
     return "//" + url;

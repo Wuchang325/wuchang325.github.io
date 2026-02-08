@@ -10,7 +10,7 @@
         @click="store.boxOpenState = false"
       />
     </transition>
-    <transition name="el-fade-in-linear">
+    <!----><transition name="el-fade-in-linear">
       <setting-two
         class="setting"
         theme="filled"
@@ -29,7 +29,10 @@
 </template>
 
 <script setup>
-import { CloseOne, SettingTwo } from "@icon-park/vue-next";
+import { CloseOne, 
+  //
+  SettingTwo 
+} from "@icon-park/vue-next";
 import { mainStore } from "@/store";
 import TimeCapsule from "@/components/TimeCapsule.vue";
 import MoreContent from "@/components/MoreContent.vue";

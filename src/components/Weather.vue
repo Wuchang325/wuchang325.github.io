@@ -23,32 +23,21 @@ import { Error } from "@icon-park/vue-next";
 
 // 高德开发者 Key
 const mainKey = import.meta.env.VITE_WEATHER_KEY;
+const tencentKey = import.meta.env.VITE_TENCENT_WEATHER_KEY;
 
 // 天气数据
 const weatherData = reactive({
   adCode: {
-    city: null, // 城市
-    adcode: null, // 城市编码
+    city: null,
+    adcode: null,
   },
   weather: {
-    weather: null, // 天气现象
-    temperature: null, // 实时气温
-    winddirection: null, // 风向描述
-    windpower: null, // 风力级别
+    weather: null,
+    temperature: null,
+    winddirection: null,
+    windpower: null,
   },
 });
-
-// 取出天气平均值
-const getTemperature = (min, max) => {
-  try {
-    // 计算平均值并四舍五入
-    const average = (Number(min) + Number(max)) / 2;
-    return Math.round(average);
-  } catch (error) {
-    console.error("计算温度出现错误：", error);
-    return "NaN";
-  }
-};
 
 // 获取天气数据
 const getWeatherData = async () => {
@@ -61,7 +50,6 @@ const getWeatherData = async () => {
       const data = result.result;
       weatherData.adCode = {
         city: data.city.City || "未知地区",
-        // adcode: data.city.cityId,
       };
       weatherData.weather = {
         weather: data.condition.day_weather,
@@ -70,17 +58,22 @@ const getWeatherData = async () => {
         windpower: data.condition.day_wind_power,
       };
     } else {
-      // 获取 Adcode
-      const adCode = await getAdcode(mainKey);
-      console.log(adCode);
-      if (adCode.infocode !== "10000") {
+      // 获取 Adcode（用腾讯 Key）
+      const adCode = await getAdcode(tencentKey || mainKey);
+    
+      // console.log(adCode);
+      if (adCode.status !== 0) {
         throw "地区查询失败";
       }
+      
+      // ========== 只改这里：从 ad_info 读取 ==========
       weatherData.adCode = {
-        city: adCode.city,
-        adcode: adCode.adcode,
+        city: adCode.result.ad_info.city,      // 原来是 adCode.city
+        adcode: adCode.result.ad_info.adcode,  // 原来是 adCode.adcode
       };
-      // 获取天气信息
+      // ============================================
+      
+      // 获取天气信息（还是用高德）
       const result = await getWeather(mainKey, weatherData.adCode.adcode);
       weatherData.weather = {
         weather: result.lives[0].weather,
@@ -92,6 +85,17 @@ const getWeatherData = async () => {
   } catch (error) {
     console.error("天气信息获取失败:" + error);
     onError("天气信息获取失败");
+  }
+};
+
+// 取出天气平均值
+const getTemperature = (min, max) => {
+  try {
+    const average = (Number(min) + Number(max)) / 2;
+    return Math.round(average);
+  } catch (error) {
+    console.error("计算温度出现错误：", error);
+    return "NaN";
   }
 };
 
@@ -108,7 +112,6 @@ const onError = (message) => {
 };
 
 onMounted(() => {
-  // 调用获取天气
   getWeatherData();
 });
 </script>

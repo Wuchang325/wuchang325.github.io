@@ -1,10 +1,10 @@
 {
   "name": "home",
-  "author": "imsyy",
-  "github": "https://github.com/imsyy/home",
-  "home": "https://imsyy.top",
+  "author": "zient",
+  "github": "https://github.com/Wuchang325/wuchang325.github.io",
+  "home": "https://zient.top",
   "private": true,
-  "version": "4.1.4",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite --host",
